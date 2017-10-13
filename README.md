@@ -190,7 +190,7 @@ Another use case for closures occurs when we declare our classes.  Because JavaS
 
 let ItemId = 0
 class Item {
-  constructor(manufacturePrice){
+  constructor(name, manufacturePrice){
     this.name = name
     this.manufacturePrice = manufacturePrice
     this.id = ++ItemId;
