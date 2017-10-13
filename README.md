@@ -94,14 +94,14 @@ function retailPriceMaker(manufacturePrice){
 const retailPriceForNine = retailPriceMaker(9)
 
 retailPriceForNine
-// ƒ (marketType){
+// ƒ (marketMultiplier){
 //  return marketMultiplier * manufacturePrice;
 // }  
 ```
 
 And if you type the `manufacturePrice` into the console, you will see that it is not defined in the current global scope.  Yet, somehow, when we execute this `retailPriceForNine` function it knows that the `manufacturePrice` is 9.  It knows this, even though `retailPriceForNine` points to a function that does not have the variable defined in its execution scope.  So how does the function have a value for `manufacturePrice`?  Placing a debugger into our code and running it in our chrome console show us.  
 
-![curriculum](https://curriculum-content.s3.amazonaws.com/web-development/js/advanced-scope/closures-readme/chrome-debugger-closures.png)
+http://res.cloudinary.com/smithwebtek/image/upload/v1507817943/learn-co/chrome-debugger-closures-v3.png
 
 We see that `manufacturePrice` price is defined because of a closure.  A closure is the attribute that all JavaScript functions have: *JavaScript functions hold onto the scope that they had when they were declared*.  Let's take a look at our code again to see how we made use of a closure.  
 
@@ -124,7 +124,7 @@ So just like we can return a function called `retailPriceForNine` and then see t
 
 ```js
 function retailPriceMaker(manufacturePrice){
-  return function(marketType){
+  return function(marketMultiplier){
     return marketMultiplier * manufacturePrice;
   }
 }
@@ -151,13 +151,13 @@ So here, our returned functions provides some capability that JavaScript objects
 ```js
 
   class Item {
-    constructor(manufacturePrice, marketType){
+    constructor(name, manufacturePrice){
       this.name = name
       this.manufacturePrice = manufacturePrice
     }
-    retailPrice(marketType){
+    retailPrice(marketMultiplier){
       let manufacturePrice;
-      return function(marketType){
+      return function(marketMultiplier){
         return marketMultiplier * manufacturePrice;
       }
     }
@@ -169,11 +169,11 @@ So here, our returned functions provides some capability that JavaScript objects
   // {name:  'tennis shoe', manufacturePrice: 4}
 ```
 
- But we our attributes can be made truly private when using a closure.  
+ Our attributes can be made truly private when using a closure.  
 
  ```js
  function retailPriceMaker(manufacturePrice){
-   return function(marketType){
+   return function(marketMultiplier){
      return marketMultiplier * manufacturePrice
    }
  }
@@ -195,7 +195,7 @@ class Item {
     this.manufacturePrice = manufacturePrice
     this.id = ++ItemId;
   }
-  retailPrice(marketType){
+  retailPrice(marketMultiplier){
     return marketMultiplier * manufacturePrice
   }
 }
@@ -209,13 +209,13 @@ function createItem(){
   let ItemId = 0
   // return the class
   return class {
-    constructor(manufacturePrice){
+    constructor(name, manufacturePrice){
       this.name = name
       this.manufacturePrice = manufacturePrice
       this.id = ++ItemId;
     }
 
-    retailPrice(marketType){
+    retailPrice(marketMultiplier){
       return marketMultiplier * manufacturePrice;
     }
   }
